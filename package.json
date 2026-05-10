@@ -1,7 +1,7 @@
 {
     "name": "untodo",
     "version": "0.0.1-alpha.1",
-    "description": "Type-safe replacement for TODO/FIXME/HACK comments — trackable in IDE, enforceable by lint and the type system.",
+    "description": "Type-safe TODO for humans and AI — trackable, structured, and lint-enforceable.",
     "type": "module",
     "main": "./dist/index.cjs",
     "module": "./dist/index.mjs",

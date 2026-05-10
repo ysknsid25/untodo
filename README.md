@@ -1,5 +1,7 @@
 # untodo
 
+Type-safe TODO for humans and AI — trackable, structured, and lint-enforceable.
+
 Type-safe replacement for `// TODO:` comments.
 Trackable in your IDE, enforceable by lint, surfaced by the type system.
 
@@ -16,52 +18,261 @@ Trackable in your IDE, enforceable by lint, surfaced by the type system.
 
 Inspired by [Kotlin's `TODO()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-t-o-d-o.html).
 
+## Affinity with AI coding assistants
+
+Now that AI-assisted coding is the norm, `// TODO:` comments have a new set of problems. **AI reads comments as plain text**, so it tends to miss the fact that a TODO exists, and the way TODOs are written drifts from author to author.
+
+untodo addresses both issues.
+
+### AI recognizes TODOs more reliably
+
+A `TODO` in untodo is a function call backed by a type definition. AI coding assistants (Claude, GitHub Copilot, etc.) take type information and function signatures into account as context, so they pick up the existence and intent of a TODO far more reliably than from a `// TODO:` comment.
+
+```typescript
+// AI sees this only as "text"
+// TODO: implement later (where? who? why?)
+
+// AI sees this as "a call to an unimplemented function"
+return TODO({ reason: "API not implemented yet", issue: 123, assignee: "alice" })
+```
+
+Structured metadata like `reason`, `issue`, and `assignee` lets AI accurately read off who left the TODO, why, and which issue it is tied to.
+
+### TODOs become consistent in style
+
+`// TODO:` comments tend to be written differently by every author.
+
+```typescript
+// TODO: fix this
+// TODO(alice): fix later
+// TODO #123
+// FIXME: has a bug
+```
+
+With untodo, ESLint / oxlint rules can ban comment-style TODOs and enforce the function-call form. Consistent shape also improves AI completion and suggestion quality when it reads the surrounding code.
+
 ## Install
 
 ```bash
 npm install untodo
 ```
 
-## Usage
+## Quick start
 
-```ts
-import { TODO, FIXME, HACK, defineConfig } from "untodo";
+Run the bundled initializer once at the project root:
 
-function fetchUser(): User {
-  return TODO({ reason: "未実装" });
-}
+```bash
+npx untodo init
 ```
 
-`untodo.config.ts`:
+This writes two files (and prints an ESLint snippet you can paste into your existing config). Existing files are skipped unless you pass `--force`.
+
+```
+wrote: ./untodo.config.ts
+wrote: ./global.d.ts
+```
+
+### 1. `untodo.config.ts` — runtime configuration
+
+Registers project-wide defaults via `defineConfig`. Per-call callbacks passed to `TODO()` / `FIXME()` / `HACK()` always win over what's set here, so this file is the right place to put fallback behavior.
+
+The generated template ships with everything commented out:
 
 ```ts
-import { defineConfig } from "untodo";
+import { defineConfig } from 'untodo';
 
 export default defineConfig({
-  repo: "org/repo",
-  onTodo: (meta) => console.warn(`TODO: ${meta.reason}`),
+  // repo: 'org/repo',
+  // onTodo:  (meta) => console.warn(`TODO: ${meta.reason}`),
+  // onFixme: (meta) => console.error(`FIXME: ${meta.reason}`),
+  // onHack:  (meta) => console.warn(`HACK: ${meta.reason}`),
 });
 ```
 
-## ESLint plugin
+| Field | Type | Purpose |
+|---|---|---|
+| `repo` | `string` | Repository in `org/repo` form. Tooling uses it to expand the `issue` meta field into a full URL (e.g. `https://github.com/org/repo/issues/123`). |
+| `onTodo`  | `(meta: TodoMeta)  => void` | Default handler for every `TODO()` call that doesn't pass its own callback. |
+| `onFixme` | `(meta: FixmeMeta) => void` | Default handler for every `FIXME()` call that doesn't pass its own callback. |
+| `onHack`  | `(meta: HackMeta)  => void` | Default handler for every `HACK()` call that doesn't pass its own callback. |
+
+A typical setup that warns in development and integrates with your logger:
 
 ```ts
-// eslint.config.ts
-import untodoPlugin from "untodo/eslint";
+import { defineConfig } from 'untodo';
+
+export default defineConfig({
+  repo: 'ysknsid25/untodo',
+  onTodo: (meta) => {
+    const issue = meta.issue ? ` (#${meta.issue})` : '';
+    console.warn(`TODO${issue}: ${meta.reason}`);
+  },
+  onFixme: (meta) => console.error(`FIXME: ${meta.reason}`),
+  onHack:  (meta) => console.warn(`HACK: ${meta.reason}`),
+});
+```
+
+Import this file once from your application entry point (or test setup) so `defineConfig` runs before any `TODO()` is evaluated:
+
+```ts
+import './untodo.config';
+```
+
+### 2. `global.d.ts` — extending the meta types
+
+`TODO()`, `FIXME()`, and `HACK()` accept structured metadata. By default only `reason: string` is required. Add project-specific fields to the `TodoMeta` / `FixmeMeta` / `HackMeta` interfaces via TypeScript [Declaration Merging](https://www.typescriptlang.org/docs/handbook/declaration-merging.html).
+
+The generated template:
+
+```ts
+declare module 'untodo' {
+  interface TodoMeta {
+    // issue?: number | string;
+    // assignee?: string;
+  }
+  interface FixmeMeta {
+    // issue?: number | string;
+  }
+  interface HackMeta {
+    // issue?: number | string;
+  }
+}
+
+export {};
+```
+
+Uncomment or add fields to fit your team's workflow. For example:
+
+```ts
+declare module 'untodo' {
+  interface TodoMeta {
+    issue?: number | string;
+    assignee?: string;
+    severity?: 'low' | 'medium' | 'high';
+  }
+  interface FixmeMeta {
+    issue?: number | string;
+  }
+  interface HackMeta {
+    issue?: number | string;
+  }
+}
+
+export {};
+```
+
+After this, callers get full type checking and IDE autocomplete for the extra fields:
+
+```ts
+return TODO({
+  reason: 'wire up the user repository',
+  issue: 123,           // ← typed
+  assignee: 'alice',    // ← typed
+  severity: 'high',     // ← typed, only 'low' | 'medium' | 'high' allowed
+});
+```
+
+Make sure `global.d.ts` is included by your `tsconfig.json` (most default `"include"` patterns already pick up `**/*.d.ts`).
+
+> The trailing `export {};` keeps the file as a module, which is required for `declare module` augmentation to apply.
+
+### 3. Add the ESLint plugin
+
+`init` finishes by printing a flat-config snippet. Paste it into your existing `eslint.config.ts` (or `.mjs`):
+
+```ts
+import untodoPlugin from 'untodo/eslint';
 
 export default [
   {
     plugins: { untodo: untodoPlugin },
     rules: {
-      "untodo/no-todo": "error",
-      "untodo/no-fixme": "error",
-      "untodo/no-hack": "warn",
+      'untodo/no-todo':  'error',
+      'untodo/no-fixme': 'error',
+      'untodo/no-hack':  'warn',
     },
   },
 ];
 ```
 
 The same plugin works with [oxlint](https://oxc.rs/docs/guide/usage/linter.html)'s JS plugin support.
+
+## Usage
+
+```ts
+import { TODO, FIXME, HACK } from 'untodo';
+
+function fetchUser(): User {
+  return TODO({ reason: 'wire up the user repository' });
+}
+
+function parseDate(input: string): Date {
+  return FIXME({ reason: 'rejects valid ISO strings with offsets' });
+}
+
+function legacyAdapter(): Adapter {
+  return HACK({ reason: 'old API ships in the next major; remove then' });
+}
+```
+
+Because each function returns `never`, the surrounding code keeps type-checking as if a real value flowed through — there's no need to add `as User` casts or fake return values.
+
+### Per-call handlers
+
+Pass a callback as the second argument to override the global handler for one call:
+
+```ts
+return TODO(
+  { reason: 'wire up the user repository' },
+  (meta) => myLogger.warn('todo.hit', meta),
+);
+```
+
+### Opting out of the global handler
+
+Once `defineConfig({ onTodo })` is set, **every** `TODO()` call without a per-call callback fires the global handler. That's usually what you want — but on a hot path, or for a deliberately quiet placeholder, you may want one specific call to skip the handler.
+
+`untodo` does not bake an opt-out flag into the meta types — naming and semantics are policy, and policy belongs to your team. The recommended pattern is to add a boolean field via Declaration Merging and short-circuit inside your handler:
+
+```ts
+// global.d.ts — pick whatever name your team prefers (silent / muted / skip ...)
+declare module 'untodo' {
+  interface TodoMeta {
+    silent?: boolean;
+  }
+}
+
+// untodo.config.ts
+import { defineConfig } from 'untodo';
+
+export default defineConfig({
+  onTodo: (meta) => {
+    if (meta.silent) return;
+    sendToSentry(meta);
+  },
+});
+```
+
+```ts
+// usage
+TODO({ reason: 'normal placeholder' });                  // global fires
+TODO({ reason: 'tight loop', silent: true });            // global skipped
+TODO({ reason: 'custom path' }, (m) => myLogger.warn(m)); // per-call wins, global skipped
+```
+
+The same pattern applies to `FixmeMeta` / `HackMeta`. Keeping the gate inside the handler — rather than as a library-level switch — means the predicate can be as nuanced as you need (`if (meta.severity === 'low' && process.env.CI) return;` etc.) without `untodo` having to anticipate every shape.
+
+## API
+
+| Export | Description |
+|---|---|
+| `TODO(meta, cb?)` | Marks a code path as not yet implemented. Returns `never`. |
+| `FIXME(meta, cb?)` | Marks broken code that must be repaired. Returns `never`. |
+| `HACK(meta, cb?)` | Marks a deliberate workaround to revisit. Returns `never`. |
+| `defineConfig(config)` | Registers project-wide defaults (used in `untodo.config.ts`). |
+| `untodo/eslint` | ESLint / oxlint plugin exposing `no-todo`, `no-fixme`, `no-hack` rules. |
+
+None of `TODO` / `FIXME` / `HACK` throw at runtime — they only invoke the configured handler. Lint enforcement is what makes them block the build.
 
 ## Scripts
 
