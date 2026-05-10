@@ -1,0 +1,76 @@
+{
+    "name": "untodo",
+    "version": "0.0.1-alpha.0",
+    "description": "Type-safe replacement for TODO/FIXME/HACK comments — trackable in IDE, enforceable by lint and the type system.",
+    "type": "module",
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.cjs"
+        },
+        "./eslint": {
+            "types": "./dist/eslint.d.ts",
+            "import": "./dist/eslint.mjs",
+            "require": "./dist/eslint.cjs"
+        }
+    },
+    "bin": {
+        "untodo": "./dist/cli.mjs"
+    },
+    "files": [
+        "dist",
+        "README.md",
+        "LICENSE"
+    ],
+    "scripts": {
+        "build": "unbuild",
+        "test": "vitest run",
+        "test:coverage": "vitest run --coverage",
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix"
+    },
+    "keywords": [
+        "todo",
+        "fixme",
+        "hack",
+        "type-safe",
+        "eslint",
+        "eslint-plugin",
+        "oxlint",
+        "oxlint-plugin",
+        "unjs"
+    ],
+    "author": "Kanon",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ysknsid25/untodo.git"
+    },
+    "license": "MIT",
+    "devDependencies": {
+        "@eslint/js": "^9.39.2",
+        "@stylistic/eslint-plugin": "^5.6.1",
+        "@types/node": "^22.10.1",
+        "@typescript-eslint/rule-tester": "^8.17.0",
+        "@typescript-eslint/utils": "^8.17.0",
+        "@vitest/coverage-v8": "^2.1.8",
+        "eslint": "^9.16.0",
+        "eslint-define-config": "^2.1.0",
+        "globals": "^16.5.0",
+        "typescript": "^5.7.2",
+        "typescript-eslint": "^8.49.0",
+        "unbuild": "^2.0.0",
+        "vitest": "^2.1.8"
+    },
+    "peerDependencies": {
+        "eslint": "^8.0.0 || ^9.0.0"
+    },
+    "peerDependenciesMeta": {
+        "eslint": {
+            "optional": true
+        }
+    }
+}

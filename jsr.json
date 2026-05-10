@@ -1,0 +1,13 @@
+{
+    "name": "@ysknsid25/untodo",
+    "version": "0.0.1-alpha.0",
+    "license": "MIT",
+    "exports": {
+        ".": "./src/index.ts",
+        "./eslint": "./src/eslint/index.ts"
+    },
+    "publish": {
+        "include": ["src/**/*.ts", "README.md", "LICENSE", "jsr.json"],
+        "exclude": ["src/**/*.test.ts", "src/cli/**"]
+    }
+}
