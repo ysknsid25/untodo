@@ -15,34 +15,34 @@ type MessageIds = 'noTodo';
  */
 export const noTodo: ReturnType<typeof createRule<Options, MessageIds>>
   = createRule<Options, MessageIds>({
-  name: 'no-todo',
-  meta: {
-    type: 'problem',
-    docs: {
-      description: 'Disallow leftover `TODO()` calls.',
-    },
-    schema: [],
-    messages: {
-      noTodo: 'Unresolved TODO: {{reason}}',
-    },
-  },
-  defaultOptions: [],
-  create(context) {
-    return {
-      CallExpression(node) {
-        if (node.callee.type !== 'Identifier' || node.callee.name !== 'TODO') {
-          return;
-        }
-        const reason = extractReason(node.arguments[0]);
-        context.report({
-          node,
-          messageId: 'noTodo',
-          data: { reason: reason ?? '(no reason)' },
-        });
+    name: 'no-todo',
+    meta: {
+      type: 'problem',
+      docs: {
+        description: 'Disallow leftover `TODO()` calls.',
       },
-    };
-  },
-});
+      schema: [],
+      messages: {
+        noTodo: 'Unresolved TODO: {{reason}}',
+      },
+    },
+    defaultOptions: [],
+    create(context) {
+      return {
+        CallExpression(node) {
+          if (node.callee.type !== 'Identifier' || node.callee.name !== 'TODO') {
+            return;
+          }
+          const reason = extractReason(node.arguments[0]);
+          context.report({
+            node,
+            messageId: 'noTodo',
+            data: { reason: reason ?? '(no reason)' },
+          });
+        },
+      };
+    },
+  });
 
 function extractReason(arg: unknown): string | undefined {
   if (
