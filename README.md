@@ -1,5 +1,13 @@
 # untodo
 
+[![JSR](https://jsr.io/badges/@ysknsid25/untodo)](https://jsr.io/@ysknsid25/untodo)
+[![JSR Score](https://jsr.io/badges/@ysknsid25/untodo/score)](https://jsr.io/@ysknsid25/untodo/score)
+[![npm version](https://img.shields.io/npm/v/untodo.svg)](https://www.npmjs.com/package/untodo)
+[![npm downloads](https://img.shields.io/npm/dm/untodo.svg)](https://www.npmjs.com/package/untodo)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+[![Test](https://github.com/ysknsid25/untodo/actions/workflows/test.yml/badge.svg)](https://github.com/ysknsid25/untodo/actions/workflows/test.yml)
+[![Lint and Format](https://github.com/ysknsid25/untodo/actions/workflows/lint.yml/badge.svg)](https://github.com/ysknsid25/untodo/actions/workflows/lint.yml)
+
 Type-safe TODO for humans and AI — trackable, structured, and lint-enforceable.
 
 Type-safe replacement for `// TODO:` comments.
