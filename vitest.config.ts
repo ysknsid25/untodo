@@ -11,6 +11,7 @@ export default defineConfig({
       },
       exclude: [
         'examples/**',
+        'playground/**',
         'dist/**',
         'build.config.ts',
         'vitest.config.ts',
