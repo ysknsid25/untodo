@@ -282,6 +282,45 @@ The same pattern applies to `FixmeMeta` / `HackMeta`. Keeping the gate inside th
 
 None of `TODO` / `FIXME` / `HACK` throw at runtime — they only invoke the configured handler. Lint enforcement is what makes them block the build.
 
+## Bundle size
+
+Trading `// TODO:` comments for function calls is not free. Comments are stripped by minification; function calls survive it, so every call site keeps roughly **30–60 bytes** in the shipped bundle (most of it is the metadata string itself). The library runtime is ~1.4 KB.
+
+In practice this is rarely visible, because the recommended setup keeps these calls out of production in the first place:
+
+- **ESLint blocks them in CI.** `untodo/no-todo` (and `no-fixme` / `no-hack`) set to `'error'` fails the build. A `TODO()` that reaches your production bundle is one that escaped review — fix it, don't ship it.
+- **Runtime is minimal.** No `throw`, no reflection, no I/O — just an optional handler call.
+- **Server / CLI bundles don't care.** A few hundred extra bytes in a Node process is noise.
+
+### Zero-overhead opt-out for frontend bundles
+
+If you want to be extra defensive about your shipped bundle, alias `untodo` to a no-op module in production builds and let the bundler tree-shake the runtime away:
+
+```ts
+// untodo-noop.ts
+export const TODO = (): never => undefined as never;
+export const FIXME = TODO;
+export const HACK = TODO;
+export const defineConfig = <T>(c: T) => c;
+```
+
+```ts
+// vite.config.ts
+import { defineConfig } from 'vite';
+import path from 'node:path';
+
+export default defineConfig(({ mode }) => ({
+  resolve: {
+    alias:
+      mode === 'production'
+        ? { untodo: path.resolve(__dirname, './untodo-noop.ts') }
+        : {},
+  },
+}));
+```
+
+The same pattern works with Webpack (`resolve.alias`) and Rollup (`@rollup/plugin-alias`). Aliasing eliminates the runtime; pair it with terser's `pure_funcs: ['TODO', 'FIXME', 'HACK']` if you also want the metadata literals dropped where the call sites allow it.
+
 ## Scripts
 
 ```bash
