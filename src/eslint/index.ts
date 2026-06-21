@@ -23,17 +23,17 @@
  *
  * @module
  */
-import { noTodo } from "./rules/no-todo";
-import { noFixme } from "./rules/no-fixme";
-import { noHack } from "./rules/no-hack";
+import { noTodo } from './rules/no-todo';
+import { noFixme } from './rules/no-fixme';
+import { noHack } from './rules/no-hack';
 
 /**
  * Map of rule name → rule definition exposed by the plugin.
  */
 export interface UntodoPluginRules {
-    "no-todo": typeof noTodo;
-    "no-fixme": typeof noFixme;
-    "no-hack": typeof noHack;
+  'no-todo': typeof noTodo;
+  'no-fixme': typeof noFixme;
+  'no-hack': typeof noHack;
 }
 
 /**
@@ -41,35 +41,35 @@ export interface UntodoPluginRules {
  * containing only rule severities.
  */
 export interface UntodoRecommendedConfig {
-    rules: Record<string, "off" | "warn" | "error">;
+  rules: Record<string, 'off' | 'warn' | 'error'>;
 }
 
 /**
  * Shape of the default-exported plugin object.
  */
 export interface UntodoPlugin {
-    rules: UntodoPluginRules;
-    configs: {
-        recommended: UntodoRecommendedConfig[];
-    };
+  rules: UntodoPluginRules;
+  configs: {
+    recommended: UntodoRecommendedConfig[];
+  };
 }
 
 const rules: UntodoPluginRules = {
-    "no-todo": noTodo,
-    "no-fixme": noFixme,
-    "no-hack": noHack,
+  'no-todo': noTodo,
+  'no-fixme': noFixme,
+  'no-hack': noHack,
 };
 
-const configs: UntodoPlugin["configs"] = {
-    recommended: [
-        {
-            rules: {
-                "untodo/no-todo": "warn",
-                "untodo/no-fixme": "warn",
-                "untodo/no-hack": "warn",
-            },
-        },
-    ],
+const configs: UntodoPlugin['configs'] = {
+  recommended: [
+    {
+      rules: {
+        'untodo/no-todo': 'warn',
+        'untodo/no-fixme': 'warn',
+        'untodo/no-hack': 'warn',
+      },
+    },
+  ],
 };
 
 /**
@@ -79,8 +79,8 @@ const configs: UntodoPlugin["configs"] = {
  * `untodo/no-todo`, `untodo/no-fixme`, `untodo/no-hack`.
  */
 const untodoPlugin: UntodoPlugin = {
-    rules,
-    configs,
+  rules,
+  configs,
 };
 
 export default untodoPlugin;

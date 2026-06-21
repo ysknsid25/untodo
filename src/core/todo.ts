@@ -1,5 +1,5 @@
-import { getConfig } from "./config";
-import type { FixmeMeta, HackMeta, TodoMeta } from "./types";
+import { getConfig } from './config';
+import type { FixmeMeta, HackMeta, TodoMeta } from './types';
 
 /**
  * Marks a code path as not yet implemented.
@@ -23,9 +23,9 @@ import type { FixmeMeta, HackMeta, TodoMeta } from "./types";
  * @returns Never - the function returns `undefined` typed as `never`.
  */
 export function TODO(meta: TodoMeta, cb?: (meta: TodoMeta) => void): never {
-    const handler = cb ?? getConfig().onTodo;
-    handler?.(meta);
-    return undefined as never;
+  const handler = cb ?? getConfig().onTodo;
+  handler?.(meta);
+  return undefined as never;
 }
 
 /**
@@ -40,9 +40,9 @@ export function TODO(meta: TodoMeta, cb?: (meta: TodoMeta) => void): never {
  * @returns Never - the function returns `undefined` typed as `never`.
  */
 export function FIXME(meta: FixmeMeta, cb?: (meta: FixmeMeta) => void): never {
-    const handler = cb ?? getConfig().onFixme;
-    handler?.(meta);
-    return undefined as never;
+  const handler = cb ?? getConfig().onFixme;
+  handler?.(meta);
+  return undefined as never;
 }
 
 /**
@@ -57,7 +57,7 @@ export function FIXME(meta: FixmeMeta, cb?: (meta: FixmeMeta) => void): never {
  * @returns Never - the function returns `undefined` typed as `never`.
  */
 export function HACK(meta: HackMeta, cb?: (meta: HackMeta) => void): never {
-    const handler = cb ?? getConfig().onHack;
-    handler?.(meta);
-    return undefined as never;
+  const handler = cb ?? getConfig().onHack;
+  handler?.(meta);
+  return undefined as never;
 }
