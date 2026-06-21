@@ -1,7 +1,7 @@
 /**
  * Base meta passed to {@link TODO}.
  *
- * Users can extend it via Declaration Merging — additional fields are additive,
+ * Users can extend it via Declaration Merging - additional fields are additive,
  * so `reason` is always required:
  *
  * ```ts
@@ -14,8 +14,8 @@
  * ```
  */
 export interface TodoMeta {
-  /** Human-readable reason this code is unimplemented. Required. */
-  reason: string;
+    /** Human-readable reason this code is unimplemented. Required. */
+    reason: string;
 }
 
 /**
@@ -24,8 +24,8 @@ export interface TodoMeta {
  * Extendable via Declaration Merging in the same way as {@link TodoMeta}.
  */
 export interface FixmeMeta {
-  /** Human-readable description of what is broken. Required. */
-  reason: string;
+    /** Human-readable description of what is broken. Required. */
+    reason: string;
 }
 
 /**
@@ -34,8 +34,8 @@ export interface FixmeMeta {
  * Extendable via Declaration Merging in the same way as {@link TodoMeta}.
  */
 export interface HackMeta {
-  /** Human-readable description of the workaround. Required. */
-  reason: string;
+    /** Human-readable description of the workaround. Required. */
+    reason: string;
 }
 
 /**

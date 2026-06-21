@@ -1,5 +1,5 @@
 /**
- * untodo — type-safe replacement for `TODO`/`FIXME`/`HACK` comments.
+ * untodo - type-safe replacement for `TODO`/`FIXME`/`HACK` comments.
  *
  * This is the main entry point. The ESLint / oxlint plugin lives at
  * `untodo/eslint`.
@@ -19,4 +19,4 @@
  *
  * @module
  */
-export * from './core';
+export * from "./core";

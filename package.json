@@ -1,7 +1,7 @@
 {
     "name": "untodo",
     "version": "0.0.1",
-    "description": "Type-safe TODO for humans and AI — trackable, structured, and lint-enforceable.",
+    "description": "Type-safe TODO for humans and AI - trackable, structured, and lint-enforceable.",
     "type": "module",
     "main": "./dist/index.cjs",
     "module": "./dist/index.mjs",

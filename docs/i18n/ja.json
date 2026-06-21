@@ -7,7 +7,7 @@
         "logo_alt": "untodo"
     },
     "hero": {
-        "tagline": "Type-safe TODO for humans and AI — trackable, structured, and lint-enforceable.",
+        "tagline": "Type-safe TODO for humans and AI - trackable, structured, and lint-enforceable.",
         "sub": "// TODO: コメントの型安全な置き換え。IDEで追跡でき、lintで強制でき、型レベルでの検出が可能です。"
     },
     "features": {

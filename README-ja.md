@@ -16,7 +16,7 @@
 
 ---
 
-Type-safe TODO for humans and AI — trackable, structured, and lint-enforceable.
+Type-safe TODO for humans and AI - trackable, structured, and lint-enforceable.
 
 `// TODO:` コメントを型安全に置き換えます。AI コーディングのための型安全な TODO。AI エージェントのための TODO。
 IDE で追跡でき、lint で強制でき、型システムによって表に出てきます。
@@ -253,7 +253,7 @@ return TODO(
 `untodo` はオプトアウト用のフラグをメタ型に組み込んでいません。名前付けやセマンティクスはポリシーであり、ポリシーはチームに属するからです。推奨されるパターンは、Declaration Merging で boolean のフィールドを追加し、ハンドラー内でショートサーキットすることです:
 
 ```ts
-// global.d.ts — チームの好みに合わせて名前を選ぶ (silent / muted / skip ...)
+// global.d.ts - チームの好みに合わせて名前を選ぶ (silent / muted / skip ...)
 declare module 'untodo' {
   interface TodoMeta {
     silent?: boolean;

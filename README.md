@@ -16,7 +16,7 @@
 
 ---
 
-Type-safe TODO for humans and AI — trackable, structured, and lint-enforceable.
+Type-safe TODO for humans and AI - trackable, structured, and lint-enforceable.
 
 Type-safe replacement for `// TODO:` comments. Type-safe TODO for AI coding. AI agent TODO.
 Trackable in your IDE, enforceable by lint, surfaced by the type system.
@@ -29,7 +29,7 @@ Therefore, such a situation must be resolved as quickly as possible. To achieve 
 
 | Problem | Solution |
 |---|---|
-| `// TODO:` comments are easy to ignore | Function calls — lint can fail the build |
+| `// TODO:` comments are easy to ignore | Function calls - lint can fail the build |
 | Comments don't reach the type system | Returns `never` so callers detect it |
 | No structure | Pass an object with `reason`, `issue`, etc. |
 | Hard to track in an IDE | "Find references" works on a function |
@@ -233,7 +233,7 @@ function legacyAdapter(): Adapter {
 }
 ```
 
-Because each function returns `never`, the surrounding code keeps type-checking as if a real value flowed through — there's no need to add `as User` casts or fake return values.
+Because each function returns `never`, the surrounding code keeps type-checking as if a real value flowed through - there's no need to add `as User` casts or fake return values.
 
 ### Per-call handlers
 
@@ -248,12 +248,12 @@ return TODO(
 
 ### Opting out of the global handler
 
-Once `defineConfig({ onTodo })` is set, **every** `TODO()` call without a per-call callback fires the global handler. That's usually what you want — but on a hot path, or for a deliberately quiet placeholder, you may want one specific call to skip the handler.
+Once `defineConfig({ onTodo })` is set, **every** `TODO()` call without a per-call callback fires the global handler. That's usually what you want - but on a hot path, or for a deliberately quiet placeholder, you may want one specific call to skip the handler.
 
-`untodo` does not bake an opt-out flag into the meta types — naming and semantics are policy, and policy belongs to your team. The recommended pattern is to add a boolean field via Declaration Merging and short-circuit inside your handler:
+`untodo` does not bake an opt-out flag into the meta types - naming and semantics are policy, and policy belongs to your team. The recommended pattern is to add a boolean field via Declaration Merging and short-circuit inside your handler:
 
 ```ts
-// global.d.ts — pick whatever name your team prefers (silent / muted / skip ...)
+// global.d.ts - pick whatever name your team prefers (silent / muted / skip ...)
 declare module 'untodo' {
   interface TodoMeta {
     silent?: boolean;
@@ -278,7 +278,7 @@ TODO({ reason: 'tight loop', silent: true });            // global skipped
 TODO({ reason: 'custom path' }, (m) => myLogger.warn(m)); // per-call wins, global skipped
 ```
 
-The same pattern applies to `FixmeMeta` / `HackMeta`. Keeping the gate inside the handler — rather than as a library-level switch — means the predicate can be as nuanced as you need (`if (meta.severity === 'low' && process.env.CI) return;` etc.) without `untodo` having to anticipate every shape.
+The same pattern applies to `FixmeMeta` / `HackMeta`. Keeping the gate inside the handler - rather than as a library-level switch - means the predicate can be as nuanced as you need (`if (meta.severity === 'low' && process.env.CI) return;` etc.) without `untodo` having to anticipate every shape.
 
 ## API
 
@@ -290,7 +290,7 @@ The same pattern applies to `FixmeMeta` / `HackMeta`. Keeping the gate inside th
 | `defineConfig(config)` | Registers project-wide defaults (used in `untodo.config.ts`). |
 | `untodo/eslint` | ESLint / oxlint plugin exposing `no-todo`, `no-fixme`, `no-hack` rules. |
 
-None of `TODO` / `FIXME` / `HACK` throw at runtime — they only invoke the configured handler. Lint enforcement is what makes them block the build.
+None of `TODO` / `FIXME` / `HACK` throw at runtime - they only invoke the configured handler. Lint enforcement is what makes them block the build.
 
 ## Bundle size
 
@@ -298,8 +298,8 @@ Trading `// TODO:` comments for function calls is not free. Comments are strippe
 
 In practice this is rarely visible, because the recommended setup keeps these calls out of production in the first place:
 
-- **ESLint blocks them in CI.** `untodo/no-todo` (and `no-fixme` / `no-hack`) set to `'error'` fails the build. A `TODO()` that reaches your production bundle is one that escaped review — fix it, don't ship it.
-- **Runtime is minimal.** No `throw`, no reflection, no I/O — just an optional handler call.
+- **ESLint blocks them in CI.** `untodo/no-todo` (and `no-fixme` / `no-hack`) set to `'error'` fails the build. A `TODO()` that reaches your production bundle is one that escaped review - fix it, don't ship it.
+- **Runtime is minimal.** No `throw`, no reflection, no I/O - just an optional handler call.
 - **Server / CLI bundles don't care.** A few hundred extra bytes in a Node process is noise.
 
 ### Zero-overhead opt-out for frontend bundles
