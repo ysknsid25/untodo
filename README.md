@@ -1,3 +1,5 @@
+**English** | [日本語](./README-ja.md)
+
 # untodo
 
 [![JSR](https://jsr.io/badges/@ysknsid25/untodo)](https://jsr.io/@ysknsid25/untodo)
@@ -10,12 +12,14 @@
 
 Type-safe TODO for humans and AI — trackable, structured, and lint-enforceable.
 
-Type-safe replacement for `// TODO:` comments.
+Type-safe replacement for `// TODO:` comments. Type-safe TODO for AI coding. AI agent TODO.
 Trackable in your IDE, enforceable by lint, surfaced by the type system.
 
-> Status: **scaffold** — APIs are placeholders. See `Project Planning` in the repo for the design.
-
 ## Why
+
+I think Leave the TODO in a way that makes it unpleasant. Not doing what needs to be done immediately is essentially a sign that you don't expect it to happen.
+
+Therefore, such a situation must be resolved as quickly as possible. To achieve this, the tasks that need to be done must not be neatly integrated. There must always be a sense of unease.
 
 | Problem | Solution |
 |---|---|
@@ -80,7 +84,7 @@ wrote: ./untodo.config.ts
 wrote: ./global.d.ts
 ```
 
-### 1. `untodo.config.ts` — runtime configuration
+### 1. `untodo.config.ts` runtime configuration
 
 Registers project-wide defaults via `defineConfig`. Per-call callbacks passed to `TODO()` / `FIXME()` / `HACK()` always win over what's set here, so this file is the right place to put fallback behavior.
 
@@ -126,7 +130,7 @@ Import this file once from your application entry point (or test setup) so `defi
 import './untodo.config';
 ```
 
-### 2. `global.d.ts` — extending the meta types
+### 2. `global.d.ts` extending the meta types
 
 `TODO()`, `FIXME()`, and `HACK()` accept structured metadata. By default only `reason: string` is required. Add project-specific fields to the `TodoMeta` / `FixmeMeta` / `HackMeta` interfaces via TypeScript [Declaration Merging](https://www.typescriptlang.org/docs/handbook/declaration-merging.html).
 
