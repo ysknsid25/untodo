@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>untodo — Type-safe TODO for humans and AI</title>
+        <meta
+            name="description"
+            content="Type-safe replacement for // TODO: comments. Trackable, structured, and lint-enforceable."
+        />
+
+        <!-- Open Graph -->
+        <meta
+            property="og:title"
+            content="untodo — Type-safe TODO for humans and AI"
+        />
+        <meta
+            property="og:description"
+            content="Type-safe replacement for // TODO: comments. Trackable, structured, and lint-enforceable."
+        />
+        <meta
+            property="og:image"
+            content="https://ysknsid25.github.io/untodo/assets/img/og-image.png"
+        />
+        <meta property="og:url" content="https://ysknsid25.github.io/untodo/" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+
+        <!-- Favicon -->
+        <link rel="icon" href="./assets/favicon/favicon.ico" sizes="any" />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="./assets/favicon/favicon-16x16.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="./assets/favicon/favicon-32x32.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="48x48"
+            href="./assets/favicon/favicon-48x48.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="64x64"
+            href="./assets/favicon/favicon-64x64.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="./assets/favicon/apple-touch-icon.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="192x192"
+            href="./assets/favicon/android-chrome-192x192.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="512x512"
+            href="./assets/favicon/android-chrome-512x512.png"
+        />
+
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;700&display=swap"
+            rel="stylesheet"
+        />
+
+        <link rel="stylesheet" href="./assets/css/style.css" />
+    </head>
+    <body>
+        <!-- ============ header ============ -->
+        <header class="site-header">
+            <div class="container site-header__inner">
+                <div class="brand">
+                    <img
+                        src="./assets/favicon/favicon-64x64.png"
+                        alt=""
+                        width="26"
+                        height="26"
+                    />
+                    <span data-i18n="header.logo_alt">untodo</span>
+                </div>
+
+                <nav class="header-links" aria-label="External links">
+                    <a
+                        href="https://github.com/ysknsid25/untodo"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <svg
+                            viewBox="0 0 16 16"
+                            fill="currentColor"
+                            aria-hidden="true"
+                        >
+                            <path
+                                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38
+              0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01
+              1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95
+              0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.65 7.65 0 0 1 4 0c1.53-1.04
+              2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54
+              1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"
+                            />
+                        </svg>
+                        <span>GitHub</span>
+                    </a>
+                    <a
+                        href="https://www.npmjs.com/package/untodo"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <svg
+                            viewBox="0 0 16 16"
+                            fill="currentColor"
+                            aria-hidden="true"
+                        >
+                            <path
+                                d="M0 0v16h16V0H0Zm13 13h-1.99V5.99H8V13H3V3h10v10Z"
+                            />
+                        </svg>
+                        <span>npm</span>
+                    </a>
+                    <a
+                        href="https://github.com/sponsors/ysknsid25"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <svg
+                            viewBox="0 0 16 16"
+                            fill="currentColor"
+                            aria-hidden="true"
+                        >
+                            <path
+                                d="M8 14.25s-6-3.75-6-8.25c0-2.21 1.79-4 4-4 1.24 0 2.34.62 3 1.5.66-.88 1.76-1.5
+              3-1.5 2.21 0 4 1.79 4 4 0 4.5-6 8.25-6 8.25Z"
+                            />
+                        </svg>
+                        <span>Sponsor</span>
+                    </a>
+                </nav>
+
+                <div class="lang-toggle" role="group" aria-label="Language">
+                    <button type="button" data-locale="en">EN</button>
+                    <button type="button" data-locale="ja">JA</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- ============ hero ============ -->
+        <main>
+            <section class="hero">
+                <div class="container">
+                    <div class="hero__logo">
+                        <img
+                            src="./assets/img/logo-typing.svg"
+                            alt="// TODO:"
+                            width="843"
+                            height="244"
+                        />
+                    </div>
+                    <p class="hero__tagline" data-i18n="hero.tagline">
+                        Type-safe TODO for humans and AI - trackable,
+                        structured, and lint-enforceable.
+                    </p>
+                    <p class="hero__sub" data-i18n="hero.sub">
+                        Type-safe replacement for // TODO: comments. Trackable
+                        in your IDE, enforceable by lint, surfaced by the type
+                        system.
+                    </p>
+                </div>
+            </section>
+
+            <!-- ============ features ============ -->
+            <section class="features">
+                <div class="container">
+                    <p class="features__eyebrow" data-i18n="features.eyebrow">
+                        What untodo does
+                    </p>
+                    <div class="features__grid">
+                        <!-- populated by assets/js/i18n.js (renderFeatures) -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============ cta ============ -->
+            <section class="cta">
+                <div class="container">
+                    <p class="cta__heading" data-i18n="cta.heading">
+                        Try untodo now
+                    </p>
+                    <a
+                        class="cta__button"
+                        href="https://github.com/ysknsid25/untodo"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <span data-i18n="cta.button">Get started</span>
+                        <svg
+                            viewBox="0 0 16 16"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path d="M6 3l5 5-5 5" />
+                        </svg>
+                    </a>
+                </div>
+            </section>
+        </main>
+
+        <!-- ============ footer ============ -->
+        <footer class="site-footer">
+            <div class="container site-footer__inner">
+                <span data-i18n="footer.tagline"
+                    >Type-safe TODO for humans and AI.</span
+                >
+                <nav class="site-footer__links" aria-label="Footer links">
+                    <a
+                        href="https://github.com/ysknsid25/untodo"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        >GitHub</a
+                    >
+                    <a
+                        href="https://www.npmjs.com/package/untodo"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        >npm</a
+                    >
+                    <a
+                        href="https://jsr.io/@ysknsid25/untodo"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        >JSR</a
+                    >
+                    <span data-i18n="footer.license">MIT License</span>
+                </nav>
+            </div>
+        </footer>
+
+        <script src="./assets/js/i18n.js"></script>
+        <script src="./assets/js/interactions.js"></script>
+    </body>
+</html>

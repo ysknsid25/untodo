@@ -1,6 +1,8 @@
-**English** | [日本語](./README-ja.md)
-
 # untodo
+
+<p align="center">
+  <img src="docs/assets/img/logo-typing.gif" alt="untodo logo" />
+</p>
 
 [![JSR](https://jsr.io/badges/@ysknsid25/untodo)](https://jsr.io/@ysknsid25/untodo)
 [![JSR Score](https://jsr.io/badges/@ysknsid25/untodo/score)](https://jsr.io/@ysknsid25/untodo/score)
@@ -9,6 +11,10 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 [![Test](https://github.com/ysknsid25/untodo/actions/workflows/test.yml/badge.svg)](https://github.com/ysknsid25/untodo/actions/workflows/test.yml)
 [![Lint and Format](https://github.com/ysknsid25/untodo/actions/workflows/lint.yml/badge.svg)](https://github.com/ysknsid25/untodo/actions/workflows/lint.yml)
+
+**English** | [日本語](./README-ja.md)
+
+---
 
 Type-safe TODO for humans and AI — trackable, structured, and lint-enforceable.
 

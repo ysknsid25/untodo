@@ -1,0 +1,390 @@
+/* =========================================================
+   untodo LP — design tokens inherited from the hatena-blog
+   theme (_variable.scss). Standalone site, own header/footer.
+   ========================================================= */
+
+:root {
+    /* colors */
+    --bg: #f0efe7;
+    --bg-card: #ffffff;
+    --bg-code: #e9e8e0;
+    --bg-sidebar: #f7f7f3;
+    --text: #4e443c;
+    --text-light: #777777;
+    --text-faint: #9a9994;
+    --accent: #f14e32;
+    --accent-dark: #d8401f;
+    --link: #0388a6;
+    --link-hover: #026d86;
+    --border: #efeee6;
+    --border-strong: #e3e1d5;
+    --highlight: #ffe566;
+
+    /* badge colors (kept muted, not pure signal colors) */
+    --badge-todo: #0388a6;
+    --badge-fixme: #f14e32;
+    --badge-hack: #b8860b;
+
+    /* type */
+    --font-base: "Roboto Slab", "Hiragino Mincho ProN", serif;
+    --font-mono: "JetBrains Mono", "Courier", monospace;
+
+    /* layout */
+    --max-width: 1040px;
+    --radius: 12px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    background-color: var(--bg);
+}
+
+body {
+    font-family: var(--font-base);
+    color: var(--text);
+    line-height: 1.7;
+    background-color: var(--bg);
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    color: var(--link);
+    text-decoration: none;
+}
+a:hover {
+    color: var(--link-hover);
+}
+
+img,
+svg {
+    max-width: 100%;
+    display: block;
+}
+
+.container {
+    width: 100%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* -------------------- header -------------------- */
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background-color: rgba(240, 239, 231, 0.92);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--border-strong);
+}
+
+.site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--text);
+}
+
+.brand img {
+    height: 26px;
+    width: auto;
+}
+
+.header-links {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.header-links a {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text);
+    font-size: 0.92rem;
+    font-weight: 600;
+    padding: 6px 10px;
+    border-radius: 8px;
+    transition:
+        background-color 0.15s ease,
+        color 0.15s ease;
+}
+
+.header-links a:hover {
+    background-color: var(--bg-sidebar);
+    color: var(--accent);
+}
+
+.header-links svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+.lang-toggle {
+    display: flex;
+    gap: 4px;
+    margin-left: 4px;
+    border-left: 1px solid var(--border-strong);
+    padding-left: 14px;
+}
+
+.lang-toggle button {
+    font-family: var(--font-base);
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-faint);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px 6px;
+    border-radius: 6px;
+}
+
+.lang-toggle button[aria-pressed="true"] {
+    color: var(--accent);
+    background-color: var(--bg-sidebar);
+}
+
+@media (max-width: 720px) {
+    .site-header__inner {
+        height: auto;
+        flex-wrap: wrap;
+        gap: 10px;
+        /* 16px left/right gutter on SP. Must be set here (not via .container)
+           because this rule shares the element with .container and otherwise
+           zeroes its horizontal padding. */
+        padding: 12px 16px;
+    }
+    .brand {
+        order: 1;
+        font-size: 0.95rem;
+    }
+    .lang-toggle {
+        order: 2;
+        margin-left: auto;
+        padding-left: 10px;
+    }
+    .header-links {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+    .header-links a span {
+        display: none;
+    }
+    .header-links a {
+        padding: 8px;
+    }
+    .header-links svg {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+/* -------------------- hero -------------------- */
+
+.hero {
+    padding: 96px 0 72px;
+    text-align: center;
+}
+
+.hero__logo {
+    max-width: 560px;
+    width: 100%;
+    margin: 0 auto 40px;
+}
+
+.hero__logo img {
+    width: 100%;
+    height: auto;
+}
+
+.hero__tagline {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text);
+    max-width: 680px;
+    margin: 0 auto 14px;
+    line-height: 1.55;
+}
+
+.hero__sub {
+    font-size: 0.98rem;
+    color: var(--text-light);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.7;
+}
+
+@media (max-width: 640px) {
+    .hero {
+        padding: 64px 0 48px;
+    }
+    .hero__tagline {
+        font-size: 1.02rem;
+    }
+}
+
+/* -------------------- features -------------------- */
+
+.features {
+    padding: 64px 0 96px;
+}
+
+.features__eyebrow {
+    text-align: center;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 40px;
+}
+
+.features__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+}
+
+@media (max-width: 860px) {
+    .features__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 580px) {
+    .features__grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.feature-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+}
+
+.feature-card__emoji {
+    font-size: 1.8rem;
+    line-height: 1;
+    margin-bottom: 14px;
+}
+
+.feature-card__title {
+    font-size: 1.02rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+.feature-card__body {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    line-height: 1.7;
+}
+
+/* -------------------- cta -------------------- */
+
+.cta {
+    padding: 56px 0 112px;
+    text-align: center;
+}
+
+.cta__heading {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 28px;
+}
+
+.cta__button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background-color: var(--accent);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1.02rem;
+    padding: 16px 36px;
+    border-radius: 999px;
+    transition:
+        background-color 0.15s ease,
+        transform 0.15s ease;
+}
+
+.cta__button:hover {
+    background-color: var(--accent-dark);
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
+.cta__button svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* -------------------- footer -------------------- */
+
+.site-footer {
+    border-top: 1px solid var(--border-strong);
+    padding: 36px 0;
+}
+
+.site-footer__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 0.85rem;
+    color: var(--text-faint);
+}
+
+.site-footer__links {
+    display: flex;
+    gap: 18px;
+}
+
+.site-footer__links a {
+    color: var(--text-faint);
+}
+
+.site-footer__links a:hover {
+    color: var(--accent);
+}
+
+/* -------------------- accessibility -------------------- */
+
+:focus-visible {
+    outline: 2px solid var(--link);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+    }
+}

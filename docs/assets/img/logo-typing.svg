@@ -1,0 +1,94 @@
+<svg width="843.4" height="243.6" viewBox="0 0 843.4 243.6" xmlns="http://www.w3.org/2000/svg">
+  <!-- untodo animated logo: "// TODO:" is typed letter by letter with a blinking
+       caret that always sits just AFTER the most recently typed character.
+       Once typing finishes, the caret fades out and the strike-through line
+       draws across the whole word. The whole sequence then holds briefly and
+       loops forever.
+
+       Implementation note: every element animates over the SAME 4s cycle with
+       repeatCount="indefinite". Glyph opacity, caret position/blink and the
+       strike-through all use native SVG <animate> with calcMode="discrete"/
+       spline + keyTimes (not CSS classes / <set>) so the loop restarts cleanly
+       and timing cannot be lost to CSS cascade/specificity issues.
+
+       Cycle map (dur = 4s):
+         0.00s-1.40s  glyphs type in (caret blinks & jumps with each glyph)
+         1.45s        caret fades out
+         1.60s-2.20s  strike-through draws (frac 0.40 -> 0.55)
+         2.20s-4.00s  hold the finished word
+         4.00s        reset (glyphs hidden, caret back) and repeat -->
+
+  <g fill="#F14E32">
+    <!-- "/" at begin 0.00s (frac 0.000) -->
+    <path transform="translate(30.00,174.00) skewX(-6) scale(0.180000,-0.180000)" d="M30 -82H191L485 729H323Z" opacity="0">
+      <animate attributeName="opacity" dur="4s" repeatCount="indefinite"
+        calcMode="discrete" keyTimes="0;0.001;1" values="0;1;1"/>
+    </path>
+    <!-- "/" at begin 0.20s (frac 0.050) -->
+    <path transform="translate(121.98,174.00) skewX(-6) scale(0.180000,-0.180000)" d="M30 -82H191L485 729H323Z" opacity="0">
+      <animate attributeName="opacity" dur="4s" repeatCount="indefinite"
+        calcMode="discrete" keyTimes="0;0.05;1" values="0;1;1"/>
+    </path>
+    <!-- "T" at begin 0.60s (frac 0.150) -->
+    <path transform="translate(246.90,174.00) scale(0.180000,-0.180000)" d="M216 0H396V575H609V729H8V575H216Z" opacity="0">
+      <animate attributeName="opacity" dur="4s" repeatCount="indefinite"
+        calcMode="discrete" keyTimes="0;0.15;1" values="0;1;1"/>
+    </path>
+    <!-- "O" at begin 0.80s (frac 0.200) -->
+    <path transform="translate(353.46,174.00) scale(0.180000,-0.180000)" d="M402 -10Q513 -10 596.5 34.0Q680 78 726.0 161.5Q772 245 772 365Q772 485 726.0 568.5Q680 652 596.5 695.5Q513 739 402 739Q292 739 208.5 695.5Q125 652 79.0 568.5Q33 485 33 365Q33 245 79.0 161.5Q125 78 208.5 34.0Q292 -10 402 -10ZM402 143Q319 143 268.0 196.5Q217 250 217 365Q217 479 268.0 532.5Q319 586 402 586Q486 586 537.0 532.0Q588 478 588 365Q588 251 537.0 197.0Q486 143 402 143Z" opacity="0">
+      <animate attributeName="opacity" dur="4s" repeatCount="indefinite"
+        calcMode="discrete" keyTimes="0;0.2;1" values="0;1;1"/>
+    </path>
+    <!-- "D" at begin 1.00s (frac 0.250) -->
+    <path transform="translate(493.86,174.00) scale(0.180000,-0.180000)" d="M74 0H393Q503 0 578.5 46.0Q654 92 693.0 174.0Q732 256 732 364Q732 473 693.0 555.0Q654 637 578.5 683.0Q503 729 393 729H74ZM253 152V577H363Q417 577 459.0 559.0Q501 541 525.0 495.5Q549 450 549 368Q549 282 524.5 235.0Q500 188 458.0 170.0Q416 152 363 152Z" opacity="0">
+      <animate attributeName="opacity" dur="4s" repeatCount="indefinite"
+        calcMode="discrete" keyTimes="0;0.25;1" values="0;1;1"/>
+    </path>
+    <!-- "O" at begin 1.20s (frac 0.300) -->
+    <path transform="translate(627.06,174.00) scale(0.180000,-0.180000)" d="M402 -10Q513 -10 596.5 34.0Q680 78 726.0 161.5Q772 245 772 365Q772 485 726.0 568.5Q680 652 596.5 695.5Q513 739 402 739Q292 739 208.5 695.5Q125 652 79.0 568.5Q33 485 33 365Q33 245 79.0 161.5Q125 78 208.5 34.0Q292 -10 402 -10ZM402 143Q319 143 268.0 196.5Q217 250 217 365Q217 479 268.0 532.5Q319 586 402 586Q486 586 537.0 532.0Q588 478 588 365Q588 251 537.0 197.0Q486 143 402 143Z" opacity="0">
+      <animate attributeName="opacity" dur="4s" repeatCount="indefinite"
+        calcMode="discrete" keyTimes="0;0.3;1" values="0;1;1"/>
+    </path>
+    <!-- ":" at begin 1.40s (frac 0.350) -->
+    <path transform="translate(767.46,174.00) scale(0.180000,-0.180000)" d="M48 391H207V540H48ZM48 0H207V149H48Z" opacity="0">
+      <animate attributeName="opacity" dur="4s" repeatCount="indefinite"
+        calcMode="discrete" keyTimes="0;0.35;1" values="0;1;1"/>
+    </path>
+  </g>
+
+  <!-- caret: blinks while typing, jumps to each new position right after the
+       glyph at that position appears, then fades out once typing is done.
+       Blink + fade-out are encoded as one discrete opacity track over the
+       4s cycle; the x track jumps discretely and resets at the loop. -->
+  <rect x="0" y="44" width="10" height="160" rx="3" fill="#4E443C" opacity="1">
+    <!-- blink during 0-1.45s (frac 0-0.3625), then hidden until the loop -->
+    <animate attributeName="opacity" dur="4s" repeatCount="indefinite"
+      calcMode="discrete"
+      keyTimes="0;0.0625;0.125;0.1875;0.25;0.3125;0.3625;1"
+      values="1;0;1;0;1;0;0;1"/>
+    <!-- caret position: same discrete jumps as before, scaled into the cycle
+         (orig dur 1.6s -> frac 0.40), then frozen until the loop resets it -->
+    <animate attributeName="x" dur="4s" repeatCount="indefinite"
+      calcMode="discrete"
+      keyTimes="0;0;0.04975;0.05;0.09975;0.1;0.14975;0.15;0.19975;0.2;0.24975;0.25;0.29975;0.3;0.34975;0.35;0.4;1"
+      values="0;121.98;121.98;213.96;213.96;246.90;246.90;353.46;353.46;493.86;493.86;627.06;627.06;767.46;767.46;808.86;808.86;808.86"/>
+  </rect>
+
+  <!-- strike-through line: draws after the caret is gone (frac 0.40 -> 0.55),
+       holds, then resets to hidden at the loop -->
+  <line x1="6" y1="116.4" x2="837.4" y2="116.4"
+        stroke="#9A9994" stroke-width="12" stroke-linecap="round"
+        stroke-dasharray="832" stroke-dashoffset="832">
+    <animate attributeName="stroke-dashoffset" dur="4s" repeatCount="indefinite"
+      calcMode="spline"
+      keyTimes="0;0.4;0.55;1"
+      values="832;832;0;0"
+      keySplines="0 0 1 1;0.65 0 0.35 1;0 0 1 1"/>
+  </line>
+
+  <style>
+    @media (prefers-reduced-motion: reduce) {
+      svg * { animation: none !important; }
+    }
+  </style>
+</svg>

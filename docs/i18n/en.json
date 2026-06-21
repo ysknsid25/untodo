@@ -1,0 +1,56 @@
+{
+    "meta": {
+        "title": "untodo - Type-safe TODO for humans and AI",
+        "description": "Type-safe replacement for // TODO: comments. Trackable, structured, and lint-enforceable."
+    },
+    "header": {
+        "logo_alt": "untodo"
+    },
+    "hero": {
+        "tagline": "Type-safe TODO for humans and AI - trackable, structured, and lint-enforceable.",
+        "sub": "Type-safe replacement for // TODO: comments. Trackable in your IDE, enforceable by lint, surfaced by the type system."
+    },
+    "features": {
+        "eyebrow": "What untodo does",
+        "items": [
+            {
+                "emoji": "🛡️",
+                "title": "Type-Safe",
+                "body": "TODO() returns never, so it's part of the type system the moment you write it - not something a reviewer can miss like a comment. Callers keep type-checking as-is, with no need for fake casts like as User."
+            },
+            {
+                "emoji": "😖",
+                "title": "Leave the to-do list in a way that makes it unpleasant",
+                "body": "A row of neat // TODO: comments is easy to feel fine about. untodo makes a TODO fail the build via ESLint / oxlint instead, so leaving one in place stays uncomfortable until it's resolved."
+            },
+            {
+                "emoji": "🌍",
+                "title": "Everywhere it can run",
+                "body": "Works on Node.js, Bun, and Deno. Published on both npm and JSR, and built as native ESM."
+            },
+            {
+                "emoji": "📦",
+                "title": "No dependency",
+                "body": "Zero runtime dependencies. The library itself is about 1.4KB - no throw, no reflection, no I/O, just a minimal optional handler call."
+            },
+            {
+                "emoji": "🤖",
+                "title": "For AI harness",
+                "body": "AI reads comments as plain text, but TODO() is a function call backed by type information and a signature. AI coding assistants like Claude Code pick up the existence and intent of a TODO far more reliably."
+            },
+            {
+                "emoji": "🔍",
+                "title": "Detect by linter",
+                "body": "The untodo/eslint plugin ships no-todo / no-fixme / no-hack rules. Works with both ESLint and oxlint to ban comment-style TODOs and enforce the function-call form."
+            }
+        ]
+    },
+    "cta": {
+        "heading": "Try untodo now",
+        "button": "Get started"
+    },
+    "footer": {
+        "tagline": "Type-safe TODO for humans and AI.",
+        "license": "MIT License"
+    }
+}

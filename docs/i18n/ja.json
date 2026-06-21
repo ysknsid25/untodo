@@ -1,0 +1,56 @@
+{
+    "meta": {
+        "title": "untodo - Type-safe TODO for humans and AI",
+        "description": "// TODO: コメントを型安全な関数呼び出しに置き換える。これにより構造化され、追跡可能で、lintによる矯正が可能となります。"
+    },
+    "header": {
+        "logo_alt": "untodo"
+    },
+    "hero": {
+        "tagline": "Type-safe TODO for humans and AI — trackable, structured, and lint-enforceable.",
+        "sub": "// TODO: コメントの型安全な置き換え。IDEで追跡でき、lintで強制でき、型レベルでの検出が可能です。"
+    },
+    "features": {
+        "eyebrow": "untodoでできること",
+        "items": [
+            {
+                "emoji": "🛡️",
+                "title": "Type-Safe",
+                "body": "TODO() は never を返す関数。書いた瞬間から型システムに乗るので、コメントのように見落とされません。呼び出し元の型チェックはそのまま通り、as User のような偽のキャストも不要です。"
+            },
+            {
+                "emoji": "😖",
+                "title": "Leave the to-do list in a way that makes it unpleasant",
+                "body": "TODOは不快になるように残さなければいけません。// TODO: コメントは整然と並んでいるだけで満足してしまいがちですが、untodo は linterでビルドを止めること/警告を出すことで、いつでもTODOを検出でき、放置することができません。"
+            },
+            {
+                "emoji": "🌍",
+                "title": "Everywhere it can run",
+                "body": "Node.js、Bun、Deno のどこでも動作します。npm と JSR の両方で配布されており、ESM ネイティブです。"
+            },
+            {
+                "emoji": "📦",
+                "title": "No dependency",
+                "body": "ランタイムに外部依存はありません。ライブラリ本体はわずか約1.4KB。throw もリフレクションも I/O もない、最小限の実装です。"
+            },
+            {
+                "emoji": "🤖",
+                "title": "For AI harness",
+                "body": "AIはコメントを単なるテキストとして読みますが、TODO() は型情報と関数シグネチャを持つ呼び出しです。Claude CodeなどのAIコーディングアシスタントが、TODOの存在とその意図をより確実に認識できます。"
+            },
+            {
+                "emoji": "🔍",
+                "title": "Detect by linter",
+                "body": "untodo/eslint プラグインが no-todo / no-fixme / no-hack ルールを提供します。ESLint と oxlint のどちらでも、コメント形式のTODOを禁止し、関数呼び出し形式を強制できます。"
+            }
+        ]
+    },
+    "cta": {
+        "heading": "今すぐ untodo を試す",
+        "button": "Get started"
+    },
+    "footer": {
+        "tagline": "Type-safe TODO for humans and AI.",
+        "license": "MIT License"
+    }
+}
