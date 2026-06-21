@@ -1,7 +1,7 @@
 # untodo
 
 <p align="center">
-  <img src="docs/assets/img/logo-typing.gif" alt="untodo logo" />
+  <img src="docs/assets/img/logo-typing.svg" alt="untodo logo" />
 </p>
 
 [![JSR](https://jsr.io/badges/@ysknsid25/untodo)](https://jsr.io/@ysknsid25/untodo)
